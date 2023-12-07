@@ -1,13 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+require('dotenv').config()
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 let config = {
-    headers: {'Authorization': 'Bearer iDF7DZjBGbDZD1zr0WIoVvV1lbqncuRu'},
+headers: {'Authorization': `Bearer ${process.env.token}` },
     params: {
         "src": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
         "dst": "0x111111111117dc0aa78b770fa6a738034120c302",
@@ -18,6 +19,7 @@ let config = {
   }
 app.get(`/test`, async(req, res) => {
     //console.log(Id)
+    console.log(req.params);
    await axios
     .get(
       `https://api.1inch.dev/swap/v5.2/1/quote`,config
